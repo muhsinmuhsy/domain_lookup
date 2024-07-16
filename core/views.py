@@ -79,10 +79,13 @@ def index(request):
                 "registrant_postal_code": whois_data.registrant_postal_code,
                 "country": whois_data.country,
             }
+
+            if not whois_domain['domain_name']:
+                messages.error(request, 'No data found for the domain')
             
         except Exception as e:
-            messages.error(request, f'Error fetching WHOIS data: {str(e)}')
-            return redirect('index')
+            messages.error(request, f'Error: {str(e)}')
+            
 
     context = {
         'whois_domain': whois_domain

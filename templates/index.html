@@ -9,14 +9,7 @@
   <body>
   
     <div class="container">
-
-        {% if messages %}
-            <ul class="messages">
-                {% for message in messages %}
-                    <li>{{ message }}</li>
-                {% endfor %}
-            </ul>
-        {% endif %}
+        
 
         <h2 class="text-center my-3">Whois Domain</h2>
         <form method="post" class="d-flex">
@@ -25,13 +18,13 @@
             <button class="btn btn-success" type="submit">Search</button>
         </form>
 
-        <div class="card my-3">
-            <div class="card-body">
-                {% if whois_domain.domain_name %}
-                    <h2 class="text-center text-primary">{{ whois_domain.domain_name }}</h2>
+        {% if whois_domain.domain_name %}
+            <div class="card my-3">
+                <div class="card-body">
+                    <h4 class="text-center text-primary">{{ whois_domain.domain_name }}</h4>
                     <p><strong>Registrar:</strong> {{ whois_domain.registrar }}</p>
                     <p><strong>WHOIS Server:</strong> {{ whois_domain.whois_server }}</p>
-                    <p><strong>Referral URL:</strong> {{ whois_domain.referral_url }}</p>
+                    <!-- <p><strong>Referral URL:</strong> {{ whois_domain.referral_url }}</p> -->
                     <p><strong>Updated Date:</strong> {{ whois_domain.updated_date }}</p>
                     <p><strong>Creation Date:</strong> {{ whois_domain.creation_date }}</p>
                     <p><strong>Expiration Date:</strong> {{ whois_domain.expiration_date }}</p>
@@ -45,19 +38,20 @@
                     <p><strong>City:</strong> {{ whois_domain.city }}</p>
                     <p><strong>State:</strong> {{ whois_domain.state }}</p>
                     <p><strong>Postal Code:</strong> {{ whois_domain.registrant_postal_code }}</p>
-                    <p><strong>Country:</strong> {{ whois_domain.country }}</p>
-                {% else %}
-                    No data Fount
-                {% endif %}
-    
+                    <p><strong>Country:</strong> {{ whois_domain.country }}</p>   
+                </div>
             </div>
+        {% endif %}
 
-        </div>
+        {% for message in messages %}
+            {% if message.tags == 'error' %}
+                <div class="alert alert-danger alert-dismissible fade show my-3" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endif %}
+        {% endfor %}
     </div>
-    
-
-    
-
     
 
     
