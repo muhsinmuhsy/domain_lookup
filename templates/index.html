@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Bootstrap demo</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  </head>
+  <body>
+  
+    <div class="container">
+
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+
+        <h2 class="text-center my-3">Whois Domain</h2>
+        <form method="post" class="d-flex">
+            {% csrf_token %}
+            <input class="form-control me-2" type="text" id="domain" name="domain" required placeholder="Search..">
+            <button class="btn btn-success" type="submit">Search</button>
+        </form>
+
+        <div class="card my-3">
+            <div class="card-body">
+                {% if whois_domain.domain_name %}
+                    <h2 class="text-center text-primary">{{ whois_domain.domain_name }}</h2>
+                    <p><strong>Registrar:</strong> {{ whois_domain.registrar }}</p>
+                    <p><strong>WHOIS Server:</strong> {{ whois_domain.whois_server }}</p>
+                    <p><strong>Referral URL:</strong> {{ whois_domain.referral_url }}</p>
+                    <p><strong>Updated Date:</strong> {{ whois_domain.updated_date }}</p>
+                    <p><strong>Creation Date:</strong> {{ whois_domain.creation_date }}</p>
+                    <p><strong>Expiration Date:</strong> {{ whois_domain.expiration_date }}</p>
+                    <p><strong>Name Servers:</strong> {{ whois_domain.name_servers }}</p>
+                    <p><strong>Status:</strong> {{ whois_domain.status }}</p>
+                    <p><strong>Emails:</strong> {{ whois_domain.emails }}</p>
+                    <p><strong>DNSSEC:</strong> {{ whois_domain.dnssec }}</p>
+                    <p><strong>Name:</strong> {{ whois_domain.name }}</p>
+                    <p><strong>Organization:</strong> {{ whois_domain.org }}</p>
+                    <p><strong>Address:</strong> {{ whois_domain.address }}</p>
+                    <p><strong>City:</strong> {{ whois_domain.city }}</p>
+                    <p><strong>State:</strong> {{ whois_domain.state }}</p>
+                    <p><strong>Postal Code:</strong> {{ whois_domain.registrant_postal_code }}</p>
+                    <p><strong>Country:</strong> {{ whois_domain.country }}</p>
+                {% else %}
+                    No data Fount
+                {% endif %}
+    
+            </div>
+
+        </div>
+    </div>
+    
+
+    
+
+    
+
+    
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+  </body>
+</html>

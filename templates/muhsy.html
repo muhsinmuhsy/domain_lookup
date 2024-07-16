@@ -1,0 +1,118 @@
+<!-- index.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WHOIS Lookup</title>
+</head>
+<body>
+    <h1>WHOIS Lookup Results</h1>
+
+    <form method="post">
+        {% csrf_token %}
+        <label for="domain">Enter domain:</label>
+        <input type="text" id="domain" name="domain">
+        <button type="submit">Lookup</button>
+    </form>
+
+    {% if whois_domain %}
+        <div>
+            <h2>{{ whois_domain.domain_name }}</h2>
+            <p><strong>Registrar:</strong> {{ whois_domain.registrar }}</p>
+            <p><strong>WHOIS Server:</strong> {{ whois_domain.whois_server }}</p>
+            <p><strong>Referral URL:</strong> {{ whois_domain.referral_url }}</p>
+            <p><strong>Updated Date:</strong> {{ whois_domain.updated_date }}</p>
+            <p><strong>Creation Date:</strong> {{ whois_domain.creation_date }}</p>
+            <p><strong>Expiration Date:</strong> {{ whois_domain.expiration_date }}</p>
+            <p><strong>Name Servers:</strong> {{ whois_domain.name_servers }}</p>
+            <p><strong>Status:</strong> {{ whois_domain.status }}</p>
+            <p><strong>Emails:</strong> {{ whois_domain.emails }}</p>
+            <p><strong>DNSSEC:</strong> {{ whois_domain.dnssec }}</p>
+            <p><strong>Name:</strong> {{ whois_domain.name }}</p>
+            <p><strong>Organization:</strong> {{ whois_domain.org }}</p>
+            <p><strong>Address:</strong> {{ whois_domain.address }}</p>
+            <p><strong>City:</strong> {{ whois_domain.city }}</p>
+            <p><strong>State:</strong> {{ whois_domain.state }}</p>
+            <p><strong>Postal Code:</strong> {{ whois_domain.registrant_postal_code }}</p>
+            <p><strong>Country:</strong> {{ whois_domain.country }}</p>
+        </div>
+    {% endif %}
+
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+</body>
+</html>
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>WHOIS Lookup</title>
+</head>
+<body>
+    <h1>WHOIS Lookup</h1>
+    <form method="post">
+        {% csrf_token %}
+        <label for="domain">Domain:</label>
+        <input type="text" id="domain" name="domain" required>
+        <button type="submit">Lookup</button>
+    </form>
+
+    {% if error_message %}
+        <p style="color: red;">{{ error_message }}</p>
+    {% endif %}
+
+    {% if whois_data %}
+        <h2>WHOIS Data</h2>
+        <p><strong>Domain Name:</strong> {{ whois_data.domain_name }}</p>
+        <p><strong>Registrar:</strong> {{ whois_data.registrar }}</p>
+        <p><strong>WHOIS Server:</strong> {{ whois_data.whois_server }}</p>
+        <p><strong>Referral URL:</strong> {{ whois_data.referral_url }}</p>
+        <p><strong>Updated Date:</strong>
+            <ul>
+                {% for date in whois_data.updated_date %}
+                    <li>{{ date }}</li>
+                {% endfor %}
+            </ul>
+        </p>
+        <p><strong>Creation Date:</strong> {{ whois_data.creation_date }}</p>
+        <p><strong>Expiration Date:</strong> {{ whois_data.expiration_date }}</p>
+        <p><strong>Name Servers:</strong>
+            <ul>
+                {% for server in whois_data.name_servers %}
+                    <li>{{ server }}</li>
+                {% endfor %}
+            </ul>
+        </p>
+        <p><strong>Status:</strong>
+            <ul>
+                {% for status in whois_data.status %}
+                    <li>{{ status }}</li>
+                {% endfor %}
+            </ul>
+        </p>
+        <p><strong>Emails:</strong>
+            <ul>
+                {% for email in whois_data.emails %}
+                    <li>{{ email }}</li>
+                {% endfor %}
+            </ul>
+        </p>
+        <p><strong>DNSSEC:</strong> {{ whois_data.dnssec }}</p>
+        <p><strong>Name:</strong> {{ whois_data.name }}</p>
+        <p><strong>Organization:</strong> {{ whois_data.org }}</p>
+        <p><strong>Address:</strong> {{ whois_data.address }}</p>
+        <p><strong>City:</strong> {{ whois_data.city }}</p>
+        <p><strong>State:</strong> {{ whois_data.state }}</p>
+        <p><strong>Postal Code:</strong> {{ whois_data.registrant_postal_code }}</p>
+        <p><strong>Country:</strong> {{ whois_data.country }}</p>
+    {% endif %}
+</body>
+</html>
